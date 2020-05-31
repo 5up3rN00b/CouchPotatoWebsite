@@ -10,7 +10,9 @@ $sth = $db->prepare("SELECT `password` FROM `users` WHERE `name` = ?");
 $sth->execute([$_POST['loginName']]);
 $passArr = $sth->fetchAll();
 
-if ($passArr[0]['loginPassword'] == $_POST['loginPassword']) {
+$hashedPw = hash('sha256', $_POST['loginPassword']);
+
+if ($passArr[0]['loginPassword'] == $hashedPw) {
     echo 'Login success';
 } else {
     echo 'Login failed';

@@ -16,8 +16,10 @@ $passArr = $sth->fetchAll();
 if (!empty($passArr)) {
     echo 'Name already taken';
 } else {
+    $hashedPw = hash('sha256', $_POST['registerPassword']);
+
     $sth = $db->prepare("INSERT INTO `users` (`name`, `password`) VALUES (?, ?)");
-    $sth->execute([$_POST['registerName'], $_POST['registerPassword']]);
+    $sth->execute([$_POST['registerName'], $hashedPw]);
     $passArr = $sth->fetchAll();
     echo 'Registered successfully';
 }
