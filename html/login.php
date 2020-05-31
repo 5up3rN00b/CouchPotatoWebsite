@@ -12,7 +12,7 @@ $passArr = $sth->fetchAll();
 
 $hashedPw = hash('sha256', $_POST['loginPassword']);
 
-if ($passArr[0]['loginPassword'] == $hashedPw) {
+if ($passArr[0]['password'] == $hashedPw) {
     echo 'Login success';
 } else {
     echo 'Login failed';
